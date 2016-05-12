@@ -3,7 +3,7 @@
 
 ####Layout
 Nothing special about the `makefile` I just wanted to save a bit of time.
-In `converter.c` I basically have kept most of my "successful" optimization attempts. Reading from the top-down, things get faster until `conv3`. After that, my attempts for `conv4` and `conv5` had some weird behavior that I will talk about below. In general I have included some minor comments throughout the code that point out a few places that I tried to make things faster.
+In `converter.c` I basically have kept most of my "successful" optimization attempts. Reading from the top-down, things get faster until `conv4`. After that, my attempts for `conv5` and `conv6` had some weird behavior that I will talk about below. In general I have included some minor comments throughout the code that point out a few places that I tried to make things faster.
 
 ####`conv` - `conv4`
 Basically the general idea for optimzation was already laid out in `conv`, which was to iterate through a string, change its ascii into numbers, and then add things up to get the number. In `conv2` I started using bitshifts for the multiplication by 10 and logical operators on bytes to speed up converting from ascii to ints (since the offset nicely worked out to 48 or 0011 0000). I don't actually think this sped things up very much, if at all (I'll talk about this later in the results). In `conv3` I removed an iteration from the loop which, as expected, shaved off a ton of time. 
@@ -28,6 +28,7 @@ Unfortunately, I have not yet had time to test these on polytopia. So I am actua
 | `conv6` | 0.009279 | N/A |
 
 `* - I say slow because I didn't actually test it. Given how slow it was at -O3, I didn't want to wait around if it was actually slower on a lower optimization level.`
+
 `** - I am highlighting this one because the -O1 test I ran was actually faster in one run than the -O3. More on this below.`
 
 I was kind of curious about how my assembly code was running against the other versions, but I couldn't test it at `-O3` since that didn't compile, so I ended up just testing everything at `-O1`.
